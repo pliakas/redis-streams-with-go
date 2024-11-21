@@ -1,0 +1,56 @@
+version: "3.6"
+
+services:
+
+#   This is to build and run redis-stream-producer
+  producer:
+    container_name: redis-stream-simple-producer
+    build:
+      context: .
+      dockerfile: Dockerfiles/Dockerfile.producer
+    ports:
+      - "42050:8090"
+    environment: # Pass environment variables to the service
+      - REDIS_SERVER_HOST=redis
+      - REDIS_SERVER_PORT=6379
+    depends_on:
+      - redis
+
+#  consumer:
+#    container_name: redis-stream-single-consumer
+#    build:
+#      context: .
+#      dockerfile: Dockerfiles/Dockerfile.consumer
+#    ports:
+#      - "42052:8090"
+#    environment: # Pass environment variables to the service
+#      - REDIS_SERVER_HOST=redis
+#      - REDIS_SERVER_PORT=6379
+#    depends_on:
+#      - redis
+
+  consumer_group:
+    container_name: redis-stream-group-consumer
+    build:
+      context: .
+      dockerfile: Dockerfiles/Dockerfile.group.consumer
+    ports:
+      - "42054:8090"
+    environment: # Pass environment variables to the service
+      - REDIS_SERVER_HOST=redis
+      - REDIS_SERVER_PORT=6379
+    depends_on:
+      - redis
+
+  redis:
+    container_name: redis-server
+    image: redis/redis-stack:latest
+    ports:
+      - 6379:6379
+    healthcheck:
+      test: [ "CMD", "redis-cli", "--raw", "incr", "ping" ]
+    volumes:
+      - redis_data:/data
+
+volumes:
+  redis_data:
