@@ -2,7 +2,6 @@ version: "3.6"
 
 services:
 
-   This is to build and run redis-stream-producer
   producer:
     container_name: redis-stream-simple-producer
     build:
