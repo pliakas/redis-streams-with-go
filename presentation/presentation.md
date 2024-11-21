@@ -57,7 +57,12 @@ A [stream](https://en.wikipedia.org/wiki/Stream_(computing)) is a sequence of da
 * [Golang Redis client](https://redis.uptrace.dev)
 * [Go Typed Redis Streams](https://github.com/dranikpg/gtrs)
 * [Docker](https://www.docker.com)
+---
+# **Where to find the code**
 
+```shell
+git clone https://github.com/pliakas/redis-streams-with-go
+```
 ---
 # **Adding data to a stream**
 
@@ -173,10 +178,12 @@ XACK mystream mygroup 1526569411111-0
 * [Redis Commands Cheat sheet](https://redis.io/learn/howtos/quick-start/cheat-sheet)
 * [Getting started with Redis Streams (Data sheet)](https://redislabs.com/wp-content/uploads/2021/08/DS-Redis-Streams.pdf)
 --- 
-
-
 # **Questions/Discussion**
---- 
+---
+# **Thank you**
+![bg right:40% 80%](./images/golang.svg)
+![bg right:40% 80%](./images/redis-logo.svg)
+---
 <!-- Add this anywhere in your Markdown file -->
 <script type="module">
   import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';

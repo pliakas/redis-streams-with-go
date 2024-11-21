@@ -52,7 +52,7 @@ func main() {
 
 	for {
 		var msg consumer.Message[WeatherReportMessage]                    // our message
-		var ackTarget *consumer.GroupConsumer[WeatherReportMessage] = nil // who to send the confimration
+		var ackTarget *consumer.GroupConsumer[WeatherReportMessage] = nil // who to send the confirmation
 
 		select {
 		// Consumers just close the stream on close or cancellation without
@@ -88,11 +88,6 @@ func main() {
 				msg.Data.EventTime,
 				msg.Stream)
 
-			//// Ack blocks only if the inner ackBuffer is full.
-			//// Use it only inside the loop or from another goroutine with continous error processing.
-			//if ackTarget != nil {
-			//	ackTarget.Ack(msg)
-			//}
 			// Ack blocks only if the inner ackBuffer is full.
 			// Use it only inside the loop or from another goroutine with continous error processing.
 			if ackTarget != nil {

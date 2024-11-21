@@ -21,8 +21,6 @@ var CityWeatherStations = []string{
 
 var WeatherReportStream = "weather-station-stream"
 
-var messageIDs = make(map[string]string)
-
 func main() {
 
 	produce(10, 10, 2*time.Second, WeatherReportStream)
@@ -49,7 +47,7 @@ func produce(messages int, batches int, delay time.Duration, streamName string) 
 		for i := 0; i < messages; i++ {
 
 			//TODO: START Sending messages
-			id, err := producer.Add(ctx, WeatherReportMessage{
+			_, err := producer.Add(ctx, WeatherReportMessage{
 				Station:     CityWeatherStations[rand.Intn(9)],
 				Temperature: rand.Intn(45),
 				Humidity:    rand.Intn(100),
@@ -59,9 +57,6 @@ func produce(messages int, batches int, delay time.Duration, streamName string) 
 			if err != nil {
 				fmt.Printf("Unable to send message to stream: %v\n", streamName)
 			}
-
-			messageIDs[WeatherReportStream] = id
-
 		}
 		time.Sleep(delay)
 	}
