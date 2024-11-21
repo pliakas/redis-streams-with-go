@@ -5,6 +5,7 @@ import (
 	"fmt"
 	consumer "github.com/dranikpg/gtrs"
 	"github.com/redis/go-redis/v9"
+	"math/rand"
 	"os"
 	"time"
 )
@@ -46,7 +47,8 @@ func main() {
 		remC3 := groupC3.Close()
 		remC4 := groupC4.Close()
 
-		fmt.Println("Those acks were not sent", remC1, remC2, remC3, remC4)
+		fmt.Printf("Those acks were not sent: \ngroupC1: %v, \ngroupC2: %v, \ngroupC3: %v, \ngroupC4: %v\n",
+			remC1, remC2, remC3, remC4)
 
 	}()
 
@@ -96,10 +98,10 @@ func main() {
 
 			//// Lets sometimes send an acknowledgement to the wrong stream.
 			//// Just for demonstration purposes to get a real AckError
-			//if ackTarget == nil && rand.Float32() < 0.1 {
-			//	fmt.Println("Sending bad ack :)")
-			//	groupC1.Ack(msg)
-			//}
+			if ackTarget == nil && rand.Float32() < 0.1 {
+				fmt.Println("Sending bad ack :)")
+				groupC1.Ack(msg)
+			}
 		case consumer.ReadError:
 			// One of the consumers will stop. So lets stop altogether.
 			fmt.Fprintf(os.Stderr, "Read error! %v Exiting...\n", msg.Err)
