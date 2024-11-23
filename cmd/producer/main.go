@@ -23,7 +23,7 @@ var WeatherReportStream = "weather-station-stream"
 
 func main() {
 
-	produce(10, 10, 2*time.Second, WeatherReportStream)
+	produce(10, 1, 5*time.Second, WeatherReportStream)
 
 }
 

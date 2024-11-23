@@ -24,7 +24,7 @@ func main() {
 
 	// HINT: initialize redis client to connect to server
 	opt := &redis.Options{
-		Addr: "127.0.0.1:6379",
+		Addr: "redis:6379",
 	}
 	rdb := redis.NewClient(opt)
 
@@ -32,16 +32,16 @@ func main() {
 
 	defer cancelFunc()
 
-	////TODO: Get the right
+	//////TODO: Get the right
 	//fmt.Println("INFO: Reading from last success")
 	//lastId, err := rdb.Get(ctx, "CONSUMER#KEY#LASTID").Result()
 	//if err != nil {
-	//	fmt.Printf("An error occured while finding the last seenId: %v. Starting from the begiggning.", err)
+	//	fmt.Printf("An error occured while finding the last seenId: %v. Starting from the start.", err)
 	//	lastId = StartStreamID
 	//}
-	//fmt.Println("Last ID: ", lastId)
+	//fmt.Println("Start from Last ID: ", lastId)
 
-	//TODO: Create a client for "main-stream" redis stream
+	//TODO: Create a client for "weather stream" redis stream
 	mainStream := stream.NewConsumer[WeatherReportMessage](ctx, rdb,
 		stream.StreamIDs{
 			WeatherReportStream: StartStreamID},
@@ -51,7 +51,7 @@ func main() {
 
 		// Lets see where we stopped reading "main-stream"
 		seenIds := mainStream.Close()
-		fmt.Println("Main stream reader stopped on", seenIds)
+		fmt.Printf("%s stream reader stopped on: %v", WeatherReportStream, seenIds)
 
 		//fmt.Println("Saving last Read: ", seenIds["weather-station-stream"])
 		//_, err := rdb.Set(context.Background(), "CONSUMER#KEY#LASTID", seenIds["weather-station-stream"], 0).Result()

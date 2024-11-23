@@ -151,7 +151,7 @@ Example:
 XREADGROUP GROUP mygroup COUNT 30 consumer-one STREAMS mystream >
 ````
 ---
-# **Acknowledge after reading*
+# **Acknowledge after reading**
 ```shell
 XACK [stream name] [group name] [id]
 ```
@@ -161,7 +161,7 @@ XACK mystream mygroup 1526569411111-0
 ````
 ---
 
-# **Let's code a consumer-group
+# **Let's code a consumer-group**
 ![width:1000px](./images/Slide4.jpg)
 
 ---
