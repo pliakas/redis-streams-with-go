@@ -31,7 +31,7 @@ func main() {
 	ctx, cancelFunc := context.WithTimeout(context.Background(), 20*time.Second)
 	defer cancelFunc()
 
-	// Create two consumers
+	// Create  consumers
 	// - four on group g1 of stream group-stream
 	groupC1 := consumer.NewGroupConsumer[WeatherReportMessage](ctx, rdb, "g1", "c1", WeatherReportStream, "0-0")
 	groupC2 := consumer.NewGroupConsumer[WeatherReportMessage](ctx, rdb, "g1", "c2", WeatherReportStream, "0-0")
